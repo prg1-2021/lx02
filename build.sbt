@@ -1,0 +1,22 @@
+lazy val common_project = Seq(
+  organization := "prg21",
+  version := "0.1-SNAPSHOT",
+
+  run / fork := true,
+  run/ connectInput := true,
+  Global / cancelable := true,
+  )
+
+lazy val scala_project = common_project ++ Seq(
+  scalaVersion := "2.13.6",   // コンパイルに使う scalac のバージョン
+  scalacOptions := Seq("-feature", "-unchecked", "-deprecation"),
+  Compile / scalaSource := baseDirectory.value / "src",
+  )
+
+lazy val java_project = scala_project ++ Seq(
+  javacOptions ++= Seq("-encoding", "UTF-8"),
+  Compile / javaSource := baseDirectory.value / "java"
+  )
+
+lazy val support = (project in file ("support")).settings(java_project)
+lazy val root = (project in file(".")).dependsOn(support).settings(scala_project)
