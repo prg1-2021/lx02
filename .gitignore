@@ -1,5 +1,5 @@
 /.*
 !/.gitignore
-/project/
-/target/
+project/
+target/
 /*.class

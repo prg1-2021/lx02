@@ -121,6 +121,7 @@ public abstract class World implements KeyListener {
 
   private World driverLoop(final double s, World w) {
     this.world = w;
+    w.draw();
     final SynchronousQueue<World> q = new SynchronousQueue<>();
     Timer timer = new Timer((int) (1000 * s), new ActionListener() {
 
