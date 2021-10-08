@@ -17,8 +17,7 @@ case class TimerWorld1(t: Int) extends World() {
     // まず、画面を消去するために(0, 0)-(0+width, 0+height)の範囲を白で塗り潰している。
     canvas.drawRect(Pos(0, 0), canvas.width, canvas.height, White)
     // 画面に経過時間を表示
-    val (sec, subsec) = (t / 100, t % 100)
-    canvas.drawString(Pos(0, canvas.height), s"${sec}.${subsec}")
+    canvas.drawString(Pos(0, canvas.height/2), f"${0.01*t}%.02f")
     true
   }
 

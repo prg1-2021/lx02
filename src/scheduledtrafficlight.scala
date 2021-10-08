@@ -19,10 +19,10 @@ case class ScheduledLight(color: Color, waitFor: Int) extends World() {
    * 信号の状態の遷移
    **/
   def tick(): World = {
-    (waitFor, color) match {
-      case (0, Red) => ScheduledLight(Green, SECS_FOR_GREEN)
-      case (0, Green)  => ScheduledLight(Yellow, SECS_FOR_YELLOW)
-      case (0, Yellow) => ScheduledLight(Red, SECS_FOR_RED)
+    (color, waitFor) match {
+      case (Red,    0) => ScheduledLight(Green, SECS_FOR_GREEN)
+      case (Green,  0)  => ScheduledLight(Yellow, SECS_FOR_YELLOW)
+      case (Yellow, 0) => ScheduledLight(Red, SECS_FOR_RED)
       case _ => ScheduledLight(color, waitFor -1)
     }
   }
