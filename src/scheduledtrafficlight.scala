@@ -2,15 +2,13 @@ import sgeometry.Pos
 import sdraw.{World, Color, Red, Green, Yellow}
 
 case class ScheduledLight(color: Color, waitFor: Int) extends World() {
-
-  val SECS_FOR_RED    = 7
-  val SECS_FOR_GREEN  = 5
-  val SECS_FOR_YELLOW = 2
+  val A = ScheduledTrafficLightApp
 
   /**
    * 信号を描画する。円を塗り潰しているだけ。
    **/
   def draw(): Boolean = {
+    println(waitFor)
     canvas.drawDisk(Pos(150, 150), 120, color)
     true
   }
@@ -20,10 +18,10 @@ case class ScheduledLight(color: Color, waitFor: Int) extends World() {
    **/
   def tick(): World = {
     (color, waitFor) match {
-      case (Red,    0) => ScheduledLight(Green, SECS_FOR_GREEN)
-      case (Green,  0)  => ScheduledLight(Yellow, SECS_FOR_YELLOW)
-      case (Yellow, 0) => ScheduledLight(Red, SECS_FOR_RED)
-      case _ => ScheduledLight(color, waitFor -1)
+      case (Red,    1) => ScheduledLight(Green, A.SECS_FOR_GREEN)
+      case (Green,  1)  => ScheduledLight(Yellow, A.SECS_FOR_YELLOW)
+      case (Yellow, 1) => ScheduledLight(Red, A.SECS_FOR_RED)
+      case _ => ScheduledLight(color, waitFor - 1)
     }
   }
 
@@ -36,5 +34,9 @@ case class ScheduledLight(color: Color, waitFor: Int) extends World() {
 }
 
 object ScheduledTrafficLightApp extends App {
-  ScheduledLight(Red, 7).bigBang(300, 300, 1)
+  val SECS_FOR_RED    = 7
+  val SECS_FOR_GREEN  = 5
+  val SECS_FOR_YELLOW = 2
+
+  ScheduledLight(Red, SECS_FOR_RED).bigBang(300, 300, 1)
 }
