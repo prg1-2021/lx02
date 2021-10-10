@@ -25,7 +25,7 @@ case class PotonWorld(centerX: Int, centerY: Int) extends World() {
       Green                                            // 塗り潰し色
     ) &&
     // ボール
-    canvas.drawDisk(Pos(centerX, centerY), 50, Blue)
+    canvas.drawDisk(Pos(centerX, centerY), BallRadius, Blue)
   }
 
   def click(p: Pos): World = this
